@@ -45,6 +45,79 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+// Implement Rule of Five
+// Copy Constructor
+ChatBot::ChatBot(const ChatBot &source)
+    {
+        std::cout << "ChatBot Copy Constructor" << std::endl;
+
+        delete _image;
+        _image = new wxBitmap();
+        *_image = *source._image;  
+
+        _currentNode    = source._currentNode;
+        _rootNode       = source._rootNode;
+        _chatLogic      = source._chatLogic;
+    }
+
+// Copy Assignment
+ChatBot &ChatBot::operator=(const ChatBot &source)
+    {
+        std::cout << "ChatBot Copy Assignment" << std::endl;
+        if (this == &source)
+            return *this;
+
+        delete _image;
+        _image = new wxBitmap();
+        *_image = *source._image;
+
+        _currentNode    = source._currentNode;
+        _rootNode       = source._rootNode;
+        _chatLogic      = source._chatLogic;
+        return *this;
+    }
+
+// Move Constructor
+ChatBot::ChatBot(ChatBot &&source)
+    {
+        std::cout << "ChatBot Move Constructor" << std::endl;
+        _image          = source._image;
+        _currentNode    = source._currentNode;
+        _rootNode       = source._rootNode;
+        _chatLogic      = source._chatLogic;
+        
+        // Update ChatLogic pointer
+        _chatLogic->SetChatbotHandle(this);
+
+        // Unassign the source pointers
+        source._image           = NULL;
+        source._currentNode    = nullptr;
+        source._rootNode       = nullptr;
+        source._chatLogic      = nullptr;
+    }
+// Move Assignment
+ChatBot &ChatBot::operator=(ChatBot &&source)
+    {
+        std::cout << "ChatBot Move Assignment" << std::endl;
+        if (this == &source)
+            return *this;
+
+        _image          = source._image;
+        _currentNode    = source._currentNode;
+        _rootNode       = source._rootNode;
+        _chatLogic      = source._chatLogic;
+
+        // Update ChatLogic pointer
+        _chatLogic->SetChatbotHandle(this);
+
+        // Unassign the source pointers
+        source._image           = NULL;
+        source._currentNode    = nullptr;
+        source._rootNode       = nullptr;
+        source._chatLogic      = nullptr;
+        return *this;
+    }
+
 ////
 //// EOF STUDENT CODE
 
@@ -84,6 +157,7 @@ void ChatBot::ReceiveMessageFromUser(std::string message)
 
 void ChatBot::SetCurrentNode(GraphNode *node)
 {
+    
     // update pointer to current node
     _currentNode = node;
 
