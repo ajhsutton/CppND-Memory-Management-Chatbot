@@ -56,7 +56,7 @@ public:
 
     // Alternate 
     //void MoveChatbotHere(std::unique_ptr<ChatBot> chatbot);
-    void MoveChatbotHere(ChatBot &&chatbot);
+    void MoveChatbotHere(ChatBot chatbot);
 
     ////
     //// EOF STUDENT CODE
