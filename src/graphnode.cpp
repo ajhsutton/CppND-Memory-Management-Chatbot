@@ -51,7 +51,8 @@ void GraphNode::MoveChatbotHere(ChatBot chatbot)
     _chatBot.SetCurrentNode(this); 
 }
 void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
-{
+{    
+    ChatBot newChatBot;
     newNode->MoveChatbotHere(std::move(_chatBot));
 }
 ////
